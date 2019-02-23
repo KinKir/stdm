@@ -1,12 +1,14 @@
-TARGETS :=
+ALL_TARGETS :=
+STDM_LHS_SOURCES := Stdm.lhs
+STDM_LHS_TARGETS := Stdm.hi Stdm.o StdmPrelude.hi StdmPrelude.o
 
 .PHONY: default
 default: Stdm.o
 
-Stdm.hi Stdm.o: Stdm.lhs
+$(STDM_LHS_TARGETS): $(STDM_LHS_SOURCES)
 	stack ghc $<
-TARGETS += Stdm.hi Stdm.o
+ALL_TARGETS += $(STDM_LHS_TARGETS)
 
 .PHONY: clean
 clean:
-	rm -rf $(TARGETS)
+	rm -rf $(ALL_TARGETS)

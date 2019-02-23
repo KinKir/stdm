@@ -40,49 +40,7 @@ documentation which will be ignored by the compiler.
 
 > module Stdm where
 
-> import Prelude
->     ( (||)
->     , (&&)
->     , (++)
->     , (.)
->     , ($)
->     , Bool(..)
->     , Eq(..)
->     , IO
->     , Int
->     , Integer
->     , Maybe(..)
->     , Monad(..)
->     , Num(..)
->     , Ord(..)
->     , Show(..)
->     , String
->     , all
->     , and
->     , any
->     , const
->     , elem
->     , error
->     , filter
->     , foldr
->     , fst
->     , head
->     , length
->     , lines
->     , map
->     , not
->     , notElem
->     , putStr
->     , readFile
->     , reverse
->     , snd
->     , writeFile
->     , zip
->     )
-> import Control.Exception
->     ( SomeException
->     , catch
->     )
+> import StdmPrelude
 
 -------------------------------------------------------------------------------
 			 Operator Precedence
@@ -1079,7 +1037,7 @@ the 2 following functions convert a String into a data-base, and vice-versa
 
 > addNewTheorem :: String -> Theorem  -> Proof -> IO ()
 > addNewTheorem filename theo proof =
->   do filedata <- (readFile filename) `catch` ((const $ return "") :: SomeException -> IO String)
+>   do filedata <- (readFile filename) `catchDefault` ""
 >      let db = readtheorems filedata
 >        in do ok <- check_proof_with_db db theo proof
 >              if ok && (db == db) -- to force the complete evaluation of 'db'
@@ -1091,7 +1049,7 @@ the 2 following functions convert a String into a data-base, and vice-versa
 
 > checkProofUsingTheorems :: String -> Theorem -> Proof -> IO ()
 > checkProofUsingTheorems filename theo proof =
->   do filedata <- (readFile filename) `catch` ((const $ return "") :: SomeException -> IO String)
+>   do filedata <- (readFile filename) `catchDefault` ""
 >      check_proof_with_db (readtheorems filedata) theo proof
 >      return ()
 

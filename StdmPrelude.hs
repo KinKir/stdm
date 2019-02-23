@@ -1,0 +1,93 @@
+{-# LANGUAGE NoImplicitPrelude #-}
+
+module StdmPrelude
+    ( (||)
+    , (&&)
+    , (++)
+    , (.)
+    , ($)
+    , Bool(..)
+    , Eq(..)
+    , IO
+    , Int
+    , Integer
+    , Maybe(..)
+    , Monad(..)
+    , Num(..)
+    , Ord(..)
+    , Show(..)
+    , SomeException
+    , String
+    , all
+    , and
+    , any
+    , catch
+    , catchDefault
+    , const
+    , elem
+    , error
+    , filter
+    , foldr
+    , fst
+    , head
+    , length
+    , lines
+    , map
+    , not
+    , notElem
+    , pure
+    , putStr
+    , readFile
+    , reverse
+    , snd
+    , writeFile
+    , zip
+    ) where
+
+import Prelude
+    ( (||)
+    , (&&)
+    , (++)
+    , (.)
+    , ($)
+    , Bool(..)
+    , Eq(..)
+    , IO
+    , Int
+    , Integer
+    , Maybe(..)
+    , Monad(..)
+    , Num(..)
+    , Ord(..)
+    , Show(..)
+    , String
+    , all
+    , and
+    , any
+    , const
+    , elem
+    , error
+    , filter
+    , foldr
+    , fst
+    , head
+    , length
+    , lines
+    , map
+    , not
+    , notElem
+    , pure
+    , putStr
+    , readFile
+    , reverse
+    , snd
+    , writeFile
+    , zip
+    )
+import Control.Exception
+    ( SomeException
+    , catch
+    )
+
+catchDefault :: IO a -> a -> IO a
+catchDefault action result = action `catch` (\e -> let e' :: SomeException; e' = e in pure result)
